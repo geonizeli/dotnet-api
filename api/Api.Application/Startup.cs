@@ -36,7 +36,7 @@ namespace Api.Application
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Scheduler");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Curso");
                 c.RoutePrefix = string.Empty;
             });
 

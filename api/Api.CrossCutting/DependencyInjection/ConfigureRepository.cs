@@ -13,7 +13,7 @@ namespace Api.CrossCutting.DependencyInjection
             serviceCollection.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
 
             serviceCollection.AddDbContext<MyContext>(
-                options => options.UseNpgsql("Host=localhost;Port=5432;Database=scheduler")
+                options => options.UseNpgsql("Host=localhost;Port=5432;Database=curso")
             );
         }
     }
