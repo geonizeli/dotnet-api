@@ -31,7 +31,7 @@ namespace Api.Service.Services
             _tokenConfigurations = tokenConfigurations;
             _configuration = configuration;
         }
-        public async Task<object> FindByLoginAsync(LoginDTO user)
+        public async Task<object> FindByLoginAsync(LoginDto user)
         {
             var baseUser = new UserEntity();
 
@@ -91,7 +91,7 @@ namespace Api.Service.Services
 
             return handler.WriteToken(securityToken);
         }
-        private object SuccessObject(DateTime createDate, DateTime expirationDate, string token, LoginDTO user)
+        private object SuccessObject(DateTime createDate, DateTime expirationDate, string token, LoginDto user)
         {
             return new
             {

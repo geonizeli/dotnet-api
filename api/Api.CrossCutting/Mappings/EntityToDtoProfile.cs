@@ -8,13 +8,13 @@ namespace Api.CrossCutting.Mappings
     {
         public EntityToDtoProfile()
         {
-            CreateMap<UserDTO, UserEntity>()
+            CreateMap<UserDto, UserEntity>()
                .ReverseMap();
 
-            CreateMap<UserCreateResultDTO, UserEntity>()
+            CreateMap<UserCreateResultDto, UserEntity>()
                .ReverseMap();
 
-            CreateMap<UserUpdateResultDTO, UserEntity>()
+            CreateMap<UserUpdateResultDto, UserEntity>()
                .ReverseMap();
         }
     }
