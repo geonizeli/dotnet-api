@@ -100,7 +100,7 @@ namespace Api.Service.Services
                 expiration = expirationDate.ToString("yyyy-MM-dd HH:mm:ss"),
                 accessToken = token,
                 userName = user.Email,
-                messagge = "Usuário Logado com sucesso"
+                messagge = "Authentication failed"
             };
         }
     }
