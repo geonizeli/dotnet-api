@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Api.Domain.Dtos;
 using Api.Domain.Dtos.User;
 
 namespace Api.Service.Test.Services
