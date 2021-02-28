@@ -31,7 +31,7 @@ namespace Api.Service.Services
             _tokenConfigurations = tokenConfigurations;
             _configuration = configuration;
         }
-        public async Task<object> FindByLoginAsync(LoginDto user)
+        public async Task<LoginResultDto> FindByLoginAsync(LoginDto user)
         {
             var baseUser = new UserEntity();
 
@@ -41,7 +41,7 @@ namespace Api.Service.Services
 
                 if (baseUser == null)
                 {
-                    return new
+                    return new LoginResultDto
                     {
                         authenticated = false,
                         message = "Authentication failed"
@@ -70,7 +70,7 @@ namespace Api.Service.Services
             }
             else
             {
-                return new
+                return new LoginResultDto
                 {
                     authenticated = false,
                     message = "Authentication failed"
@@ -91,16 +91,16 @@ namespace Api.Service.Services
 
             return handler.WriteToken(securityToken);
         }
-        private object SuccessObject(DateTime createDate, DateTime expirationDate, string token, LoginDto user)
+        private LoginResultDto SuccessObject(DateTime createDate, DateTime expirationDate, string token, LoginDto user)
         {
-            return new
+            return new LoginResultDto
             {
                 authenticated = true,
                 create = createDate.ToString("yyyy-MM-dd HH:mm:ss"),
                 expiration = expirationDate.ToString("yyyy-MM-dd HH:mm:ss"),
                 accessToken = token,
                 userName = user.Email,
-                messagge = "Authentication successful"
+                message = "Authentication successful"
             };
         }
     }

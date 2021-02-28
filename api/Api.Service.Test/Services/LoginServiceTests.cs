@@ -20,14 +20,13 @@ namespace Api.Service.Test.Services
                 Email = Faker.Internet.Email()
             };
 
-            var response = new
+            var response = new LoginResultDto
             {
                 authenticated = true,
-                create = DateTime.UtcNow,
-                expiration = DateTime.UtcNow.AddHours(8),
-                accessToken = Guid.NewGuid(),
+                create = DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss"),
+                expiration = DateTime.UtcNow.AddHours(8).ToString("yyyy-MM-dd HH:mm:ss"),
+                accessToken = Guid.NewGuid().ToString(),
                 userName = loginDto.Email,
-                name = Faker.Name.FullName(),
                 message = "Authentication successful",
             };
 

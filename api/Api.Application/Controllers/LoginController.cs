@@ -30,7 +30,7 @@ namespace Api.Application.Controllers
             {
                 var result = await service.FindByLoginAsync(login);
 
-                if (result != null)
+                if (result != null && result.authenticated)
                 {
                     return Ok(result);
                 }
