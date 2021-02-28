@@ -6,10 +6,10 @@ using Xunit;
 
 namespace Api.Service.Test.AutoMapper
 {
-    public class UserMapper : BaseTest
+    public class ModelToEntityProfileTests : BaseTest
     {
         UserModel _model;
-        public UserMapper()
+        public ModelToEntityProfileTests()
         {
             _model = new UserModel
             {
@@ -22,8 +22,8 @@ namespace Api.Service.Test.AutoMapper
 
         }
 
-        [Fact(DisplayName = "User model mapper's")]
-        public void UserMapperTests()
+        [Fact(DisplayName = "User model and entity mapper's")]
+        public void ModelToEntityProfileTestsTests()
         {
             var entity = Mapper.Map<UserEntity>(_model);
 
@@ -33,13 +33,13 @@ namespace Api.Service.Test.AutoMapper
             Assert.Equal(_model.UpdatedAt, entity.UpdatedAt);
             Assert.Equal(_model.CreatedAt, entity.CreatedAt);
 
-            var dto = Mapper.Map<UserDto>(entity);
+            var model = Mapper.Map<UserModel>(entity);
 
-            Assert.Equal(entity.Id, dto.Id);
-            Assert.Equal(entity.Name, dto.Name);
-            Assert.Equal(entity.Email, dto.Email);
-            Assert.Equal(entity.UpdatedAt, dto.UpdatedAt);
-            Assert.Equal(entity.CreatedAt, dto.CreatedAt);
+            Assert.Equal(entity.Id, model.Id);
+            Assert.Equal(entity.Name, model.Name);
+            Assert.Equal(entity.Email, model.Email);
+            Assert.Equal(entity.UpdatedAt, model.UpdatedAt);
+            Assert.Equal(entity.CreatedAt, model.CreatedAt);
         }
     }
 }
