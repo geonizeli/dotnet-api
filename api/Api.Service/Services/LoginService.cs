@@ -17,18 +17,15 @@ namespace Api.Service.Services
     {
         private IUserRepository _repository;
         private SigningConfigurations _signingConfigurations { get; set; }
-        private TokenConfigurations _tokenConfigurations { get; set; }
         public IConfiguration _configuration { get; set; }
         public LoginService(
             IUserRepository repository,
             SigningConfigurations signingConfigurations,
-            TokenConfigurations tokenConfigurations,
             IConfiguration configuration
         )
         {
             _repository = repository;
             _signingConfigurations = signingConfigurations;
-            _tokenConfigurations = tokenConfigurations;
             _configuration = configuration;
         }
         public async Task<LoginResultDto> FindByLoginAsync(LoginDto user)
@@ -59,7 +56,11 @@ namespace Api.Service.Services
                     );
 
                     var createDate = DateTime.Now;
-                    var expirationDate = createDate + TimeSpan.FromSeconds(_tokenConfigurations.Seconds);
+                    var expirationDate = createDate + TimeSpan.FromSeconds(
+                        Convert.ToInt32(
+                            Environment.GetEnvironmentVariable("AUTH_DURATION")
+                        )
+                    );
 
                     var handler = new JwtSecurityTokenHandler();
                     var token = CreateToken(identity, createDate, expirationDate, handler);
@@ -81,8 +82,8 @@ namespace Api.Service.Services
         {
             var securityToken = handler.CreateToken(new SecurityTokenDescriptor
             {
-                Issuer = _tokenConfigurations.Issuer,
-                Audience = _tokenConfigurations.Audience,
+                Issuer = Environment.GetEnvironmentVariable("AUTH_ISSUER"),
+                Audience = Environment.GetEnvironmentVariable("AUTH_AUDIENCE"),
                 SigningCredentials = _signingConfigurations.SigningCredentials,
                 Subject = identity,
                 NotBefore = createDate,

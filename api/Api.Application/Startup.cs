@@ -18,16 +18,24 @@ namespace Api.Application
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment enviroment)
         {
             Configuration = configuration;
+            _enviroment = enviroment;
         }
 
         public IConfiguration Configuration { get; }
+        public IWebHostEnvironment _enviroment { get; set; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            if (_enviroment.IsEnvironment("Test")) {
+                Environment.SetEnvironmentVariable("AUTH_AUDIENCE", "ExempleAudience");
+                Environment.SetEnvironmentVariable("AUTH_ISSUER", "ExempleIssuer");
+                Environment.SetEnvironmentVariable("AUTH_DURATION", "28800");
+            }
+
             ConfigureService.ConfigureDependenciesService(services);
             ConfigureRepository.ConfigureDependenciesRepository(services);
 
@@ -43,12 +51,6 @@ namespace Api.Application
             var signingConfigurations = new SigningConfigurations();
             services.AddSingleton(signingConfigurations);
 
-            var tokenConfigurations = new TokenConfigurations();
-            new ConfigureFromConfigurationOptions<TokenConfigurations>(
-                Configuration.GetSection("TokenConfigurations"))
-                     .Configure(tokenConfigurations);
-            services.AddSingleton(tokenConfigurations);
-
             services.AddAuthentication(authOptions =>
             {
                 authOptions.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -57,8 +59,8 @@ namespace Api.Application
             {
                 var paramsValidation = bearerOptions.TokenValidationParameters;
                 paramsValidation.IssuerSigningKey = signingConfigurations.Key;
-                paramsValidation.ValidAudience = tokenConfigurations.Audience;
-                paramsValidation.ValidIssuer = tokenConfigurations.Issuer;
+                paramsValidation.ValidAudience = Environment.GetEnvironmentVariable("AUTH_AUDIENCE");
+                paramsValidation.ValidIssuer = Environment.GetEnvironmentVariable("AUTH_ISSUER");
                 paramsValidation.ValidateIssuerSigningKey = true;
                 paramsValidation.ValidateLifetime = true;
                 paramsValidation.ClockSkew = TimeSpan.Zero;
