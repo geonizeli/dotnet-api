@@ -154,7 +154,7 @@ namespace Api.Application.Test.Controllers
             var email = Faker.Internet.Email();
 
             iUserServiceMock.Setup(m => m.Post(It.IsAny<UserCreateDto>())).ReturnsAsync(
-                new UserCreateResultDto
+                new UserDto
                 {
                     Id = Guid.NewGuid(),
                     Name = name,
@@ -180,7 +180,7 @@ namespace Api.Application.Test.Controllers
 
             Assert.True(result is CreatedResult);
 
-            var resultValues = ((CreatedResult) result).Value as UserCreateResultDto;
+            var resultValues = ((CreatedResult) result).Value as UserDto;
 
             Assert.NotNull(resultValues);
             Assert.Equal(name, resultValues.Name);
@@ -195,7 +195,7 @@ namespace Api.Application.Test.Controllers
             var email = Faker.Internet.Email();
 
             iUserServiceMock.Setup(m => m.Post(It.IsAny<UserCreateDto>())).ReturnsAsync(
-                new UserCreateResultDto
+                new UserDto
                 {
                     Id = Guid.NewGuid(),
                     Name = name,
@@ -231,7 +231,7 @@ namespace Api.Application.Test.Controllers
             var email = Faker.Internet.Email();
 
             iUserServiceMock.Setup(m => m.Put(It.IsAny<UserUpdateDto>())).ReturnsAsync(
-                new UserUpdateResultDto
+                new UserDto
                 {
                     Id = Guid.NewGuid(),
                     Name = name,
@@ -253,7 +253,7 @@ namespace Api.Application.Test.Controllers
 
             Assert.True(result is OkObjectResult);
 
-            var resultValue = ((OkObjectResult) result).Value as UserUpdateResultDto;
+            var resultValue = ((OkObjectResult) result).Value as UserDto;
 
             Assert.NotNull(resultValue);
             Assert.Equal(email, resultValue.Email);
@@ -268,7 +268,7 @@ namespace Api.Application.Test.Controllers
             var email = Faker.Internet.Email();
 
             iUserServiceMock.Setup(m => m.Put(It.IsAny<UserUpdateDto>())).ReturnsAsync(
-                new UserUpdateResultDto
+                new UserDto
                 {
                     Id = Guid.NewGuid(),
                     Name = name,

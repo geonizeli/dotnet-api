@@ -15,9 +15,9 @@ namespace Api.Service.Test.Services
         public List<UserDto> listUserDto = new List<UserDto>();
         public UserDto userDto;
         public UserCreateDto userCreateDto;
-        public UserCreateResultDto userCreateResultDto;
+        public UserDto userCreateResultDto;
         public UserUpdateDto userUpdateDto;
-        public UserUpdateResultDto userUpdateResultDto;
+        public UserDto userUpdateResultDto;
         public UserServiceTests()
         {
             Id = Guid.NewGuid();
@@ -50,7 +50,7 @@ namespace Api.Service.Test.Services
                 Email = Email
             };
 
-            userCreateResultDto = new UserCreateResultDto()
+            userCreateResultDto = new UserDto()
             {
                 Id = Id,
                 Name = Name,
@@ -65,7 +65,7 @@ namespace Api.Service.Test.Services
                 Email = Email
             };
 
-            userUpdateResultDto = new UserUpdateResultDto()
+            userUpdateResultDto = new UserDto()
             {
                 Id = Id,
                 Name = Name,

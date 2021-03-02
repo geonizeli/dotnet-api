@@ -37,7 +37,7 @@ namespace Api.Integration.Test
             Assert.Equal(HttpStatusCode.Created, postResult.StatusCode);
 
             var postResultContent = await postResult.Content.ReadAsStringAsync();
-            var userCreateResult = JsonConvert.DeserializeObject<UserCreateResultDto>(postResultContent);
+            var userCreateResult = JsonConvert.DeserializeObject<UserDto>(postResultContent);
 
             Assert.Equal(_name, userCreateResult.Name);
             Assert.Equal(_email, userCreateResult.Email);
